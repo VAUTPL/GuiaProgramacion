@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones en Python - Ingeniería Civil</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .nav-tabs li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .nav-tabs li.active {
+            background-color: #0056b3;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+            margin-top: -1px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .interactive-box {
+            background-color: #e9f5ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #003d7a;
+        }
+        input {
+            padding: 5px;
+            margin: 5px 0;
+            width: 100px;
+        }
+        .output {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            min-height: 20px;
+            margin-top: 10px;
+        }
+        .exercise {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #0056b3;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Interactiva de Funciones en Python</h1>
+        <p><strong>Profesor:</strong> Rodrigo Barba Guamán<br>
+        <strong>Asignatura:</strong> Lenguaje de Programación</p>
+    </header>
+
+    <ul class="nav-tabs">
+        <li class="active" onclick="openTab('parameters')">Parámetros</li>
+        <li onclick="openTab('variables')">Variables</li>
+        <li onclick="openTab('modules')">Módulos</li>
+        <li onclick="openTab('practices')">Buenas Prácticas</li>
+        <li onclick="openTab('exercises')">Ejercicios</li>
+    </ul>
+
+    <!-- Pestaña de Parámetros -->
+    <div id="parameters" class="tab-content active">
+        <h2>1. Parámetros en Funciones</h2>
+        <p>Los parámetros son los valores que una función recibe para trabajar con ellos. Pueden ser obligatorios u opcionales.</p>
+
+        <h3>1.1 Parámetros Obligatorios</h3>
+        <p>Son aquellos que deben ser proporcionados al llamar a la función. Si no se incluyen, Python lanzará un error.</p>
+        
+        <pre><code>def sumar(a, b):
+    # Esta función suma dos números
+    return a + b</code></pre>
+
+        <div class="interactive-box">
+            <h4>¡Pruebalo!</h4>
+            <label for="paramA">Valor de a:</label>
+            <input type="number" id="paramA" value="5">
+            <label for="paramB">Valor de b:</label>
+            <input type="number" id="paramB" value="3">
+            <button onclick="runSum()">Ejecutar sumar()</button>
+            <div class="output" id="sumOutput"></div>
+        </div>
+
+        <h3>1.2 Parámetros Opcionales</h3>
+        <p>Se definen con un valor por defecto. Si no se proporcionan, se usa el valor predeterminado.</p>
+        
+        <pre><code>def calcular_carga(peso, factor_seguridad=1.5):
+    # Calcula la carga con un factor de seguridad
+    return peso * factor_seguridad</code></pre>
+
+        <div class="interactive-box">
+            <h4>¡Pruebalo!</h4>
+            <label for="peso">Peso (kN):</label>
+            <input type="number" id="peso" value="100">
+            <label for="factorSeg">Factor de seguridad (opcional):</label>
+            <input type="number" id="factorSeg" value="1.5" step="0.1">
+            <button onclick="runCarga()">Ejecutar calcular_carga()</button>
+            <div class="output" id="cargaOutput"></div>
+        </div>
+    </div>
+
+    <!-- Pestaña de Variables -->
+    <div id="variables" class="tab-content">
+        <h2>2. Variables en Funciones</h2>
+        
+        <h3>2.1 Variables Locales</h3>
+        <p>Solo existen dentro de la función donde se definen.</p>
+        
+        <pre><code>def calcular_esfuerzo(fuerza, area):
+    # 'esfuerzo' es una variable local
+    esfuerzo = fuerza / area
+    return esfuerzo</code></pre>
+
+        <h3>2.2 Variables Globales</h3>
+        <p>Se definen fuera de funciones y son accesibles desde cualquier parte del código.</p>
+        
+        <pre><code># Variable global
+MODULO_ELASTICIDAD = 210000  # MPa para acero
+
+def calcular_deformacion(esfuerzo):
+    return esfuerzo / MODULO_ELASTICIDAD</code></pre>
+
+        <div class="interactive-box">
+            <h4>¡Pruebalo!</h4>
+            <label for="fuerza">Fuerza (N):</label>
+            <input type="number" id="fuerza" value="5000">
+            <label for="area">Área (mm²):</label>
+            <input type="number" id="area" value="50">
+            <button onclick="runEsfuerzo()">Calcular esfuerzo y deformación</button>
+            <div class="output" id="esfuerzoOutput"></div>
+        </div>
+    </div>
+
+    <!-- Pestaña de Módulos -->
+    <div id="modules" class="tab-content">
+        <h2>3. Creación de Módulos</h2>
+        <p>Los módulos permiten organizar código relacionado en archivos separados.</p>
+        
+        <h3>3.1 Estructura de un módulo</h3>
+        <p>Crear un archivo <code>estructuras.py</code> con funciones útiles:</p>
+        
+        <pre><code># estructuras.py
+def momento_inercia_rectangular(b, h):
+    """Calcula el momento de inercia de una sección rectangular"""
+    return (b * h**3) / 12
+
+def resistencia_flexion(momento_inercia, distancia_neutro, esfuerzo_admisible):
+    """Calcula la resistencia a flexión"""
+    return (esfuerzo_admisible * momento_inercia) / distancia_neutro</code></pre>
+
+        <h3>3.2 Uso del módulo</h3>
+        <pre><code># main.py
+import estructuras
+
+# Calcular para una viga de 200x400 mm
+inercia = estructuras.momento_inercia_rectangular(200, 400)
+print(f"Momento de inercia: {inercia} mm⁴")</code></pre>
+
+        <div class="interactive-box">
+            <h4>Simulación de módulo</h4>
+            <label for="baseViga">Base de viga (mm):</label>
+            <input type="number" id="baseViga" value="200">
+            <label for="alturaViga">Altura de viga (mm):</label>
+            <input type="number" id="alturaViga" value="400">
+            <button onclick="runInercia()">Calcular momento de inercia</button>
+            <div class="output" id="inerciaOutput"></div>
+        </div>
+    </div>
+
+    <!-- Pestaña de Buenas Prácticas -->
+    <div id="practices" class="tab-content">
+        <h2>4. Buenas Prácticas en Funciones</h2>
+        
+        <h3>4.1 Nombres descriptivos</h3>
+        <pre><code># Mal
+def calc(a, b):
+    return a * b
+
+# Bien
+def calcular_area_rectangular(ancho, altura):
+    return ancho * altura</code></pre>
+
+        <h3>4.2 Documentación adecuada</h3>
+        <pre><code>def calcular_cortante_maximo(fuerza_cortante, area):
+    """
+    Calcula el esfuerzo cortante máximo en una sección transversal.
+    
+    Args:
+        fuerza_cortante (float): Fuerza cortante en Newtons
+        area (float): Área de la sección transversal en mm²
+        
+    Returns:
+        float: Esfuerzo cortante máximo en MPa
+    """
+    return fuerza_cortante / area</code></pre>
+
+        <h3>4.3 Principio de responsabilidad única</h3>
+        <p>Cada función debe hacer una sola cosa y hacerla bien.</p>
+    </div>
+
+    <!-- Pestaña de Ejercicios -->
+    <div id="exercises" class="tab-content">
+        <h2>5. Ejercicios de Ingeniería Civil</h2>
+        
+        <div class="exercise">
+            <h3>Ejercicio 1: Cálculo de flecha máxima</h3>
+            <p>Crea una función que calcule la flecha máxima en una viga simplemente apoyada con carga uniforme:</p>
+            <p>δ = (5 * w * L⁴) / (384 * E * I)</p>
+            <p>Donde:<br>
+            w = carga distribuida (kN/m)<br>
+            L = luz de la viga (m)<br>
+            E = módulo de elasticidad (MPa)<br>
+            I = momento de inercia (mm⁴)</p>
+            
+            <div class="interactive-box">
+                <label for="w">Carga distribuida (kN/m):</label>
+                <input type="number" id="w" value="10">
+                <label for="L">Luz de la viga (m):</label>
+                <input type="number" id="L" value="5">
+                <label for="E">Módulo de elasticidad (MPa):</label>
+                <input type="number" id="E" value="210000">
+                <label for="I">Momento de inercia (mm⁴):</label>
+                <input type="number" id="I" value="4.3e8">
+                <button onclick="runFlecha()">Calcular flecha</button>
+                <div class="output" id="flechaOutput"></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 2: Diseño de columna</h3>
+            <p>Crea una función que determine si una columna de acero es adecuada para una carga dada:</p>
+            <pre><code>def verificar_columna(carga, area, esfuerzo_admisible):
+    # Tu código aquí
+    pass</code></pre>
+            <p>La función debe devolver True si el esfuerzo real es menor que el admisible.</p>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            // Oculta todos los contenidos de pestañas
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Desactiva todas las pestañas
+            const tabs = document.getElementsByTagName('li');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Activa la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        function runSum() {
+            const a = parseFloat(document.getElementById('paramA').value);
+            const b = parseFloat(document.getElementById('paramB').value);
+            const result = a + b;
+            document.getElementById('sumOutput').innerHTML = `Resultado: ${result}`;
+        }
+        
+        function runCarga() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const factorSeg = parseFloat(document.getElementById('factorSeg').value);
+            const result = peso * factorSeg;
+            document.getElementById('cargaOutput').innerHTML = `Carga de diseño: ${result.toFixed(2)} kN`;
+        }
+        
+        function runEsfuerzo() {
+            const fuerza = parseFloat(document.getElementById('fuerza').value);
+            const area = parseFloat(document.getElementById('area').value);
+            const esfuerzo = fuerza / area;
+            const deformacion = esfuerzo / 210000; // E = 210000 MPa
+            document.getElementById('esfuerzoOutput').innerHTML = 
+                `Esfuerzo: ${esfuerzo.toFixed(2)} MPa<br>
+                 Deformación: ${deformacion.toFixed(6)}`;
+        }
+        
+        function runInercia() {
+            const b = parseFloat(document.getElementById('baseViga').value);
+            const h = parseFloat(document.getElementById('alturaViga').value);
+            const inercia = (b * Math.pow(h, 3)) / 12;
+            document.getElementById('inerciaOutput').innerHTML = 
+                `Momento de inercia: ${inercia.toExponential(2)} mm⁴`;
+        }
+        
+        function runFlecha() {
+            const w = parseFloat(document.getElementById('w').value);
+            const L = parseFloat(document.getElementById('L').value);
+            const E = parseFloat(document.getElementById('E').value);
+            const I = parseFloat(document.getElementById('I').value);
+            
+            // Convertir unidades para consistencia
+            const w_N_mm = w * 1000 / 1000; // kN/m a N/mm
+            const L_mm = L * 1000; // m a mm
+            
+            const flecha = (5 * w_N_mm * Math.pow(L_mm, 4)) / (384 * E * I);
+            document.getElementById('flechaOutput').innerHTML = 
+                `Flecha máxima: ${flecha.toFixed(2)} mm`;
+        }
+    </script>
+</body>
+</html>
